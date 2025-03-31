@@ -16,7 +16,7 @@ const Footer = () => {
       </LogoSection>
       <InfoSection>
         <FooterText>
-        {new Date().getFullYear()} © Developed by DaniDev
+        {new Date().getFullYear()} © Developed by dherranzf
         </FooterText>
         <IconContainer>
           <a href="https://www.linkedin.com/in/daniel-herranz-fern%C3%A1ndez-b4650511b/" target="_blank" rel="noopener noreferrer">

@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import { colors, widths } from '../styles';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo_mars_rover.png';
+import logo from '/logo512.png';
 
 /**
  * Header displays the top navigation bar.
@@ -25,6 +25,10 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
             </HomeButton>
           </HomeLink>
         </HomeButtonContainer>
+        <NavButtons>
+          <NavLink to="/">Rover's Photos</NavLink>
+          <NavLink to="/timeline">Missions Timeline</NavLink>
+        </NavButtons>
         {children}
       </Container>
     </HeaderBar>
@@ -33,21 +37,25 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
 
 export default Header;
 
-/** Estilos para Header */
+/** Styled Components */
 const HeaderBar = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'space-between', // Cambiado para alinear el título con las secciones
   borderBottom: `solid 1px #d2b48c`,
   boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.15)',
-  padding: '5px 30px',
+  padding: '10px 30px', // Increased padding for a modern look
   minHeight: 80,
   backgroundColor: 'white',
 });
 
 const Container = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-start', // Alinea el contenido a la izquierda
   width: `${widths.regularPageWidth}px`,
+  margin: '0 auto', // Centra el contenedor dentro del header
 });
 
 const HomeLink = styled(Link)({
@@ -56,7 +64,9 @@ const HomeLink = styled(Link)({
 
 const HomeButtonContainer = styled.div({
   display: 'flex',
+  justifyContent: 'flex-start', // Alinea el título al inicio
   flex: 1,
+  maxWidth: '1100px', // Asegura que coincida con el ancho de las secciones de abajo
 });
 
 const HomeButton = styled.div({
@@ -80,6 +90,7 @@ const Logo = styled.img({
 const Title = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  marginRight: 'auto', // Pushes the title to the left
   h3: {
     lineHeight: '1em',
     marginBottom: 0,
@@ -90,5 +101,25 @@ const Title = styled.div({
     lineHeight: '0.8em',
     paddingLeft: 2,
     color: '#b87333', // Match footer text color
+  },
+});
+
+const NavButtons = styled.div({
+  display: 'flex',
+  gap: '20px', // Increased gap for better spacing
+  marginLeft: 'auto', // Pushes buttons to the far right
+});
+
+const NavLink = styled(Link)({
+  textDecoration: 'none',
+  color: colors.text, // Cambiado a un tono más neutro
+  fontSize: '1em',
+  fontWeight: 'bold',
+  padding: '10px 15px', // Botón con apariencia profesional
+  borderRadius: '5px',
+  backgroundColor: colors.background, // Fondo neutro
+  border: `1px solid ${colors.textSecondary}`, // Borde gris para un diseño más profesional
+  ':hover': {
+    backgroundColor: colors.accent, // Fondo gris claro al pasar el cursor
   },
 });

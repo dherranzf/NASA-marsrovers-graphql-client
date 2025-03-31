@@ -109,6 +109,7 @@ const FilterSection = styled.div({
   justifyContent: "space-between",
   alignItems: "center",
   padding: "20px",
+  marginTop: "40px", 
   marginBottom: "20px",
   backgroundColor: colors.secondary,
   borderRadius: "8px",
