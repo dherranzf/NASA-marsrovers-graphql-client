@@ -24,11 +24,16 @@ const INCREMENT_MARSPHOTO_VIEWS = gql(`
   }
 `);
 
+interface MarsPhotoCardProps {
+  marsPhoto: Omit<MarsPhoto, "modules">;
+  linkTo: string; // New prop for the link destination
+}
+
 /**
  * MarsPhoto Card component renders basic info in a card format
  * for each mars photo populating the grid homepage.
  */
-const MarsPhotoCard: React.FC<{ marsPhoto: Omit<MarsPhoto, "modules"> }> = ({ marsPhoto }) => {
+const MarsPhotoCard: React.FC<MarsPhotoCardProps> = ({ marsPhoto, linkTo }) => {
   const { sol, img_src, rover, id, earth_date } = marsPhoto;
 
   const [incrementMarsPhotoViews] = useMutation(INCREMENT_MARSPHOTO_VIEWS, {
@@ -40,7 +45,7 @@ const MarsPhotoCard: React.FC<{ marsPhoto: Omit<MarsPhoto, "modules"> }> = ({ ma
   });
 
   return (
-    <CardContainer to={`/marsPhoto/${id}`} onClick={() => incrementMarsPhotoViews()}>
+    <CardContainer to={linkTo} onClick={() => incrementMarsPhotoViews()}>
       <CardContent>
         <CardImageContainer>
           <CardImage src={img_src || ""} alt={id} />
@@ -75,17 +80,10 @@ const CardContainer = styled(Link)({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
-  [mq[0]]: {
-    width: "90%",
-  },
-  [mq[1]]: {
-    width: "47%",
-  },
-  [mq[2]]: {
-    width: "31%",
-  },
+  width: "100%", // Ensure cards take full width of their container
+  maxWidth: "300px", // Limit the maximum width of each card
   height: 380,
-  margin: 10,
+  margin: "10px auto", // Add spacing between cards and center them
   overflow: "hidden",
   position: "relative",
   ":hover": {

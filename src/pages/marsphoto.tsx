@@ -1,13 +1,13 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { Layout, QueryResult } from "../components";
 import MarsPhotoDetail from "../components/marsphoto-detail";
 
-/** GET_MARSPHOTO gql query to retrieve a specific mars photo by its ID */
+/** GET_MARSPHOTO gql query to retrieve a specific mars photo by its ID and optional sol */
 const GET_MARSPHOTO = gql`
-  query GetMarsPhoto($marsPhotoId: ID!) {
-    marsPhoto(id: $marsPhotoId) {
+  query GetMarsPhoto($marsPhotoId: ID!, $sol: String) {
+    marsPhoto(id: $marsPhotoId, sol: $sol) {
       id
       sol
       img_src
@@ -35,14 +35,17 @@ const GET_MARSPHOTO = gql`
  */
 const MarsPhoto = () => {
   const { marsPhotoId = "" } = useParams();
+  const location = useLocation();
+  const sol = new URLSearchParams(location.search).get("sol") || undefined;
+
   const { loading, error, data } = useQuery(GET_MARSPHOTO, {
-    variables: { marsPhotoId },
+    variables: { marsPhotoId, sol },
   });
 
   return (
     <Layout>
       <QueryResult error={error} loading={loading} data={data}>
-        <MarsPhotoDetail marsPhoto={data?.marsPhoto} />
+        {data?.marsPhoto && <MarsPhotoDetail marsPhoto={data.marsPhoto} />}
       </QueryResult>
     </Layout>
   );
