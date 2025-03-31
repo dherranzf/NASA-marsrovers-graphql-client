@@ -28,6 +28,7 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
         <NavButtons>
           <NavLink to="/">Rover's Photos</NavLink>
           <NavLink to="/timeline">Missions Timeline</NavLink>
+          <NavLink to="/marsfacts">Mars Facts</NavLink> 
         </NavButtons>
         {children}
       </Container>
@@ -45,7 +46,7 @@ const HeaderBar = styled.div({
   justifyContent: 'space-between', // Cambiado para alinear el título con las secciones
   borderBottom: `solid 1px #d2b48c`,
   boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.15)',
-  padding: '10px 30px', // Increased padding for a modern look
+  padding: '10px 30px', 
   minHeight: 80,
   backgroundColor: 'white',
 });
