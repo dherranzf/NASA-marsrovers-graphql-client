@@ -39,17 +39,19 @@ export default MarsPhotoDetail;
 /** Styled Components */
 const DetailContainer = styled.div({
   padding: 20,
-  backgroundColor: colors.secondary, // Updated to Mars-like tone
+  backgroundColor: colors.secondary,
   borderRadius: 8,
-  overflow: 'hidden', // Prevents overflow
-  position: 'relative', // Ensures child elements are positioned correctly
-  display: 'flex', // Aligns elements properly
-  flexDirection: 'column', // Arranges elements in a column
-  alignItems: 'stretch', // Ensures children occupy full width
+  overflowY: 'auto', // Allows vertical scrolling if the content is too large
+  maxHeight: 'calc(100vh - 40px)', // Limits the maximum height to 100% of the viewport minus a margin
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'stretch',
 });
 
 const CoverImage = styled.img({
-  width: '100%',
+  width: '100%', // Use the full width of the container
+  maxHeight: '70vh', // Limit the height to 70% of the viewport height
+  objectFit: 'contain', // Ensure the entire image is visible without cropping
   borderRadius: 8,
   marginBottom: 20,
 });
@@ -60,9 +62,8 @@ const RoverDetails = styled.div({
   backgroundColor: colors.background,
   borderRadius: 8,
   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-  width: '100%', // Ensures it stays within the container
-  boxSizing: 'border-box', // Includes padding and border in width calculation
-  flexShrink: 0, // Prevents the element from shrinking
+  width: '100%',
+  boxSizing: 'border-box',
 });
 
 const RoverImage = styled.img({
