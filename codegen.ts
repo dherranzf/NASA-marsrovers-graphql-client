@@ -1,7 +1,10 @@
 import { CodegenConfig } from "@graphql-codegen/cli";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const config: CodegenConfig = {
-  schema: "http://localhost:4000",
+  schema: process.env.VITE_MARS_GRAPHQL_SERVER_URL,
   documents: ["src/**/*.tsx"],
   generates: {
     "./src/__generated__/": {
