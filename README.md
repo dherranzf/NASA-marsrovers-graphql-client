@@ -12,7 +12,6 @@ Explore the wonders of Mars with this GraphQL React Web! 🔭
 - [🔍 Example Screenshots](#-example-screenshots)
 - [🔮 Future Improvements](#-future-improvements)
 - [📜 License](#-license)
-- [🧪 Running Tests](#-running-tests)
 
 ## 🧑‍💻 Features
 - Display a grid of Mars Rover photos and Filter photos by Martian Sol or Earth Date.
@@ -91,14 +90,7 @@ This will launch the client application, ready to interact with the GraphQL serv
 
 ### 🧪 Running Tests
 
-To run the tests for the client, follow these steps:
-
-1. Ensure all dependencies are installed:
-   ```bash
-   npm install
-   ```
-
-2. Run the tests using the following command:
+Run the tests using the following command:
    ```bash
    npm test
    ```
