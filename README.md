@@ -4,6 +4,8 @@ A **React** front-end application built with **TypeScript** and **GraphQL Client
 
 Explore the wonders of Mars with this GraphQL React Web! 🔭
 
+🌐 **LIVE WEB**: https://nasa-marsrovers-graphql-client.vercel.app/
+
 ## 📑 Table of Contents
 - [🧑‍💻 Features](#-features)
 - [🎨 Technology Stack](#️-technology-stack)
