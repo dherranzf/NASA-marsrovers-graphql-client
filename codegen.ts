@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const config: CodegenConfig = {
-  schema: process.env.VITE_MARS_GRAPHQL_SERVER_URL,
+  schema: "./src/api-contract/schema.graphqls", 
   documents: ["src/**/*.tsx"],
   generates: {
     "./src/__generated__/": {
