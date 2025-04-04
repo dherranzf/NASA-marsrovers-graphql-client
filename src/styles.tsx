@@ -13,12 +13,12 @@ export const widths = {
   textPageWidth: 800,
 };
 export const colors = {
-  primary: '#D2B48C', // Tan suave
-  secondary: '#FDEDDF', // Beige anaranjado
-  accent: '#FFA07A', // Coral claro
+  primary: '#D2B48C', // Soft tan
+  secondary: '#FDEDDF', // Orange beige
+  accent: '#b87333', // Mars-like copper tone
   background: '#FEF6EF', // Almost white
-  text: '#333333', // Gris oscuro
-  textSecondary: '#666666', // Gris medio
+  text: '#333333', // Dark gray
+  textSecondary: '#666666', // Medium gray
   ...SKColors,
 };
 
@@ -40,8 +40,11 @@ const GlobalStyles = () => (
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100%',
-        backgroundImage: 'url("/mars_surface_pattern.png")',
         backgroundColor: colors.background,
+        backgroundPosition: 'center',
+        backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/mars_surface_pattern.png")',
+        backgroundSize: 'cover',
+        backgroundAttachment: 'fixed',        
       },
       '*': {
         boxSizing: 'border-box',
@@ -70,6 +73,21 @@ const GlobalStyles = () => (
         fontSize: 16,
         textTransform: 'uppercase',
         letterSpacing: 4,
+      },
+      button: {
+        padding: '10px 20px',
+        borderRadius: '30px', // Rounded buttons
+        border: 'none',
+        backgroundColor: colors.accent,
+        color: '#fff',
+        fontSize: '1em',
+        fontWeight: 'bold',
+        cursor: 'pointer',
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+        ':hover': {
+          transform: 'scale(1.05)',
+          boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
+        },
       },
     }}
   />

@@ -44,7 +44,7 @@ const HeaderBar = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
-  borderBottom: `solid 1px #d2b48c`,
+  borderBottom: 'solid 1px #d2b48c',
   boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.15)',
   padding: '10px 30px',
   minHeight: 80,
@@ -107,13 +107,13 @@ const Title = styled.div({
   h3: {
     lineHeight: '1em',
     marginBottom: 0,
-    color: '#b87333',
+    color: colors.accent,
   },
   div: {
     fontSize: '0.9em',
     lineHeight: '0.8em',
     paddingLeft: 2,
-    color: '#b87333',
+    color: colors.accent,
   },
 });
 
@@ -134,11 +134,14 @@ const NavLink = styled(Link)({
   color: colors.text,
   fontSize: '1em',
   fontWeight: 'bold',
-  padding: '10px 15px',
-  borderRadius: '5px',
+  padding: '10px 20px',
+  borderRadius: '30px', // Rounded pill shape
   backgroundColor: colors.background,
   border: `1px solid ${colors.textSecondary}`,
+  transition: 'transform 0.3s ease, background-color 0.3s ease',
   ':hover': {
     backgroundColor: colors.accent,
+    color: '#fff', // White text on hover
+    transform: 'scale(1.1)',
   },
 });
