@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Layout } from "../components";
 import QueryResult from "../components/query-result";
 import { gql } from "../__generated__";
@@ -28,32 +28,85 @@ export const MARSPHOTOS = gql(`
 const MarsPhotos = () => {
   const [filters, setFilters] = useState({ sol: "", earth_date: "" });
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [photos, setPhotos] = useState<any[]>([]);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
   const { loading, error, data, refetch } = useQuery(MARSPHOTOS, {
     variables: filters,
+    onCompleted: (newData) => {
+      if (newData?.marsPhotos) {
+        setPhotos((prevPhotos) => [...prevPhotos, ...newData.marsPhotos]);
+      }
+    },
   });
+
+  useEffect(() => {
+    // Set default earth_date to current date - 1
+    const defaultDate = new Date();
+    defaultDate.setDate(defaultDate.getDate() - 1);
+    const formattedDate = defaultDate.toISOString().split("T")[0];
+    setFilters({ sol: "", earth_date: formattedDate });
+    setSelectedDate(defaultDate);
+    refetch({ sol: "", earth_date: formattedDate });
+  }, [refetch]);
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    // Ensure only one field is filled at a time
     if (name === "sol") {
       setFilters({ sol: value, earth_date: "" });
-      setSelectedDate(null); // Reset date picker
-      refetch({ sol: value, earth_date: "" }); // Trigger refetch on change
+      setSelectedDate(null);
+      setPhotos([]); // Reset photos
+      refetch({ sol: value, earth_date: "" });
     }
   };
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
     if (date) {
-      const formattedDate = date.toISOString().split("T")[0]; // Convert to AAAA-MM-DD
+      const formattedDate = date.toISOString().split("T")[0];
       setFilters({ sol: "", earth_date: formattedDate });
-      refetch({ sol: "", earth_date: formattedDate }); // Trigger refetch on change
+      setPhotos([]); // Reset photos
+      refetch({ sol: "", earth_date: formattedDate });
     } else {
       setFilters((prev) => ({ ...prev, earth_date: "" }));
-      refetch({ sol: "", earth_date: "" }); // Trigger refetch on clear
+      setPhotos([]); // Reset photos
+      refetch({ sol: "", earth_date: "" });
     }
   };
+
+  const loadMorePhotos = useCallback(() => {
+    if (isLoadingMore) return;
+
+    setIsLoadingMore(true);
+    let newFilters = { ...filters };
+
+    if (filters.sol) {
+      newFilters.sol = (parseInt(filters.sol) - 1).toString();
+    } else if (filters.earth_date) {
+      const currentDate = new Date(filters.earth_date);
+      currentDate.setDate(currentDate.getDate() - 1);
+      newFilters.earth_date = currentDate.toISOString().split("T")[0];
+    }
+
+    refetch(newFilters).finally(() => {
+      setFilters(newFilters);
+      setIsLoadingMore(false);
+    });
+  }, [filters, refetch, isLoadingMore]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight - 100
+      ) {
+        loadMorePhotos();
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [loadMorePhotos]);
 
   return (
     <Layout grid>
@@ -83,9 +136,18 @@ const MarsPhotos = () => {
         </form>
       </FilterSection>
       <PhotoSection>
-        <QueryResult error={error} loading={loading} data={data}>
-          {data?.marsPhotos?.length ? (
-            data.marsPhotos.map((marsPhoto) => (
+        <QueryResult
+          error={error}
+          loading={loading && photos.length === 0}
+          data={data}
+          customErrorMessage={
+            error?.networkError?.message?.includes("Failed to fetch")
+              ? "The server is currently restarting due to a long period of inactivity. A request has been sent to trigger the restart. Please wait a few minutes and try again. Thank you for your patience!"
+              : error?.message
+          }
+        >
+          {photos.length ? (
+            photos.map((marsPhoto) => (
               <MarsPhotoCard
                 key={marsPhoto.id}
                 marsPhoto={marsPhoto}
@@ -93,9 +155,14 @@ const MarsPhotos = () => {
               />
             ))
           ) : (
-            <p>No Mars photos available.</p>
+            <p>
+              {filters.sol || filters.earth_date
+                ? `No Mars photos available for the selected filters.`
+                : `No Mars photos available.`}
+            </p>
           )}
         </QueryResult>
+        {isLoadingMore && <LoadingIndicator>Loading more photos...</LoadingIndicator>}
       </PhotoSection>
     </Layout>
   );
@@ -109,7 +176,7 @@ const FilterSection = styled.div({
   justifyContent: "space-between",
   alignItems: "center",
   padding: "20px",
-  marginTop: "40px", 
+  marginTop: "40px",
   marginBottom: "20px",
   backgroundColor: colors.secondary,
   borderRadius: "8px",
@@ -123,6 +190,10 @@ const FilterSection = styled.div({
     gap: "15px",
     width: "100%",
     alignItems: "center",
+    '@media (max-width: 768px)': {
+      flexDirection: "column",
+      gap: "10px",
+    },
   },
 });
 
@@ -139,6 +210,10 @@ const FormGroup = styled.div({
     fontSize: "1em",
     border: `1px solid ${colors.textSecondary}`,
     borderRadius: "4px",
+    width: "100%",
+  },
+  '@media (max-width: 768px)': {
+    width: "100%",
   },
 });
 
@@ -149,4 +224,11 @@ const PhotoSection = styled.div({
   width: "100%",
   maxWidth: "1100px",
   margin: "0 auto",
+});
+
+const LoadingIndicator = styled.div({
+  textAlign: "center",
+  padding: "20px",
+  fontSize: "1.2em",
+  color: colors.textSecondary,
 });

@@ -1,6 +1,6 @@
 # 🪐🛰️ NASA Mars Rovers GraphQL Client
 
-A **React** front-end application built with **TypeScript** and **GraphQL Client**, designed to interact with the **NASA Mars Rovers GraphQL Server**. This client leverages modern web technologies for exploring photos taken by NASA's Mars Rovers, and other information of Mars. It features a visually appealing and responsive interface.
+A **React** front-end application built with **TypeScript** and **GraphQL Client**, designed to interact with the **NASA Mars Rovers GraphQL Server**. This client leverages modern web technologies for exploring photos taken by NASA's Mars Rovers, and other information of Mars. It features a visually appealing, responsive interface and infinite scroll.
 
 Explore the wonders of Mars with this GraphQL React Web! 🔭
 
@@ -17,6 +17,7 @@ Explore the wonders of Mars with this GraphQL React Web! 🔭
 
 ## 🧑‍💻 Features
 - Display a grid of Mars Rover photos and Filter photos by Martian Sol or Earth Date.
+- Infinite Scroll: Automatically load more photos as you scroll down the page, dynamically adjusting filters.
 - View detailed information about a specific photo, including the rover and camera details.
 - Increment the view count for a photo when it is clicked.
 - Explore a timeline of Mars Rover missions.
@@ -115,7 +116,6 @@ This will execute all test cases, including unit and integration tests, and disp
 
 ## 🔮 Future Improvements
 - Add more filtering and sorting options for photos.
-- Implement infinite scrolling for the photo grid.
 - Add user authentication for personalized features.
 - Improve error handling and user feedback.
 

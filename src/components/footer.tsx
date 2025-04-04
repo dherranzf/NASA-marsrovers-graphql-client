@@ -39,7 +39,7 @@ const FooterContainer = styled.div({
   flexDirection: 'column', // Stack sections vertically
   justifyContent: 'space-between', // Add space between sections
   alignItems: 'center',
-  color: '#b87333', // Mars-like copper tone
+  color: colors.accent, // Mars-like copper tone
   marginTop: 30,
   height: 200,
   padding: 20,
@@ -66,10 +66,16 @@ const IconContainer = styled.div({
   marginTop: 10,
   display: 'flex',
   flexDirection: 'row',
+  gap: '15px', // Add spacing between icons
   a: {
     textDecoration: 'none',
     svg: {
       fontSize: '2em', // Increase icon size
+      transition: 'transform 0.3s ease, color 0.3s ease',
+      ':hover': {
+        transform: 'scale(1.2)', // Slightly enlarge on hover
+        color: colors.accent, // Change color on hover
+      },
     },
   },
 });
@@ -84,7 +90,7 @@ const LogoContainer = styled.div({
 
 const FooterText = styled.div({
   fontSize: "0.9em",
-  color: "#b87333", // Match the initial date color
+  color: colors.accent, // Match the initial date color
   a: {
     color: "#555", // Formal and subtle link color
     textDecoration: "none",

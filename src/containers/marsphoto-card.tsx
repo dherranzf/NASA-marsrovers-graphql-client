@@ -71,23 +71,25 @@ export default MarsPhotoCard;
 
 /** MarsPhoto Card styled components */
 const CardContainer = styled(Link)({
-  borderRadius: 6,
+  borderRadius: 12, // Slightly more rounded corners
   color: colors.text,
   backgroundSize: "cover",
-  backgroundColor: colors.secondary, // Updated to Mars-like tone
-  boxShadow: "0px 1px 5px 0px rgba(0,0,0,0.2)", // Subtle shadow
+  backgroundColor: colors.secondary,
+  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // Subtle shadow
   backgroundPosition: "center",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
-  width: "100%", // Ensure cards take full width of their container
-  maxWidth: "300px", // Limit the maximum width of each card
+  width: "100%",
+  maxWidth: "300px",
   height: 380,
-  margin: "10px auto", // Add spacing between cards and center them
+  margin: "10px auto",
   overflow: "hidden",
   position: "relative",
+  transition: "transform 0.3s ease, box-shadow 0.3s ease",
   ":hover": {
-    backgroundColor: colors.accent, // Accent color for hover
+    transform: "scale(1.05)", // Slightly enlarge on hover
+    boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.2)", // Stronger shadow on hover
   },
   cursor: "pointer",
   textDecoration: "none",
