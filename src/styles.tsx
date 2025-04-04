@@ -53,9 +53,15 @@ const GlobalStyles = () => (
       h1: {
         fontSize: 40,
         lineHeight: 1,
+        '@media (max-width: 768px)': {
+          fontSize: 30,
+        },
       },
       h2: {
         fontSize: 36,
+        '@media (max-width: 768px)': {
+          fontSize: 28,
+        },
       },
       h3: {
         fontSize: 30,

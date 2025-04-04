@@ -109,7 +109,7 @@ const FilterSection = styled.div({
   justifyContent: "space-between",
   alignItems: "center",
   padding: "20px",
-  marginTop: "40px", 
+  marginTop: "40px",
   marginBottom: "20px",
   backgroundColor: colors.secondary,
   borderRadius: "8px",
@@ -123,6 +123,10 @@ const FilterSection = styled.div({
     gap: "15px",
     width: "100%",
     alignItems: "center",
+    '@media (max-width: 768px)': {
+      flexDirection: "column",
+      gap: "10px",
+    },
   },
 });
 
@@ -139,6 +143,10 @@ const FormGroup = styled.div({
     fontSize: "1em",
     border: `1px solid ${colors.textSecondary}`,
     borderRadius: "4px",
+    width: "100%",
+  },
+  '@media (max-width: 768px)': {
+    width: "100%",
   },
 });
 

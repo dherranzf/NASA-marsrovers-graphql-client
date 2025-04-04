@@ -43,20 +43,32 @@ const HeaderBar = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'space-between', // Cambiado para alinear el título con las secciones
+  justifyContent: 'space-between',
   borderBottom: `solid 1px #d2b48c`,
   boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.15)',
-  padding: '10px 30px', 
+  padding: '10px 30px',
   minHeight: 80,
   backgroundColor: 'white',
+  '@media (max-width: 768px)': {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    padding: '10px 15px',
+  },
 });
+
 
 const Container = styled.div({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-start', // Alinea el contenido a la izquierda
-  width: `${widths.regularPageWidth}px`,
-  margin: '0 auto', // Centra el contenedor dentro del header
+  justifyContent: 'flex-start',
+  width: '100%', // Ensure the container takes the full width
+  maxWidth: `${widths.regularPageWidth}px`, // Limit the maximum width
+  margin: '0 auto', // Center the container within the header
+  flexWrap: 'wrap', // Allow wrapping of child elements if needed
+  '@media (max-width: 768px)': {
+    flexDirection: 'column', // Stack elements vertically on small screens
+    alignItems: 'flex-start', // Align items to the start
+  },
 });
 
 const HomeLink = styled(Link)({
@@ -65,9 +77,9 @@ const HomeLink = styled(Link)({
 
 const HomeButtonContainer = styled.div({
   display: 'flex',
-  justifyContent: 'flex-start', // Alinea el título al inicio
+  justifyContent: 'flex-start',
   flex: 1,
-  maxWidth: '1100px', // Asegura que coincida con el ancho de las secciones de abajo
+  maxWidth: '1100px',
 });
 
 const HomeButton = styled.div({
@@ -91,36 +103,42 @@ const Logo = styled.img({
 const Title = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  marginRight: 'auto', // Pushes the title to the left
+  marginRight: 'auto',
   h3: {
     lineHeight: '1em',
     marginBottom: 0,
-    color: '#b87333', // Match footer text color
+    color: '#b87333',
   },
   div: {
     fontSize: '0.9em',
     lineHeight: '0.8em',
     paddingLeft: 2,
-    color: '#b87333', // Match footer text color
+    color: '#b87333',
   },
 });
 
 const NavButtons = styled.div({
   display: 'flex',
-  gap: '20px', // Increased gap for better spacing
-  marginLeft: 'auto', // Pushes buttons to the far right
+  gap: '20px',
+  marginLeft: 'auto',
+  '@media (max-width: 768px)': {
+    flexDirection: 'column',
+    gap: '10px',
+    marginLeft: 0,
+    width: '100%',
+  },
 });
 
 const NavLink = styled(Link)({
   textDecoration: 'none',
-  color: colors.text, // Cambiado a un tono más neutro
+  color: colors.text,
   fontSize: '1em',
   fontWeight: 'bold',
-  padding: '10px 15px', // Botón con apariencia profesional
+  padding: '10px 15px',
   borderRadius: '5px',
-  backgroundColor: colors.background, // Fondo neutro
-  border: `1px solid ${colors.textSecondary}`, // Borde gris para un diseño más profesional
+  backgroundColor: colors.background,
+  border: `1px solid ${colors.textSecondary}`,
   ':hover': {
-    backgroundColor: colors.accent, // Fondo gris claro al pasar el cursor
+    backgroundColor: colors.accent,
   },
 });
