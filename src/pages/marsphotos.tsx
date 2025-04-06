@@ -100,12 +100,15 @@ const MarsPhotos = () => {
       const scrolled = window.innerHeight + document.documentElement.scrollTop;
       const scrollHeight = document.documentElement.scrollHeight;
       const threshold = 300;
-      if (scrolled + threshold >= scrollHeight) {
+      // Trigger if near bottom OR if the page is too short to scroll
+      if (scrolled + threshold >= scrollHeight || scrollHeight <= window.innerHeight + threshold) {
         loadMorePhotos();
       }
     }, 200);
 
     window.addEventListener("scroll", handleScroll);
+    // Check immediately in case there is no scrollable content
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [loadMorePhotos]);
 
