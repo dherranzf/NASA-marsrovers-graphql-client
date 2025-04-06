@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styled from "@emotion/styled";
 import { colors } from "../styles";
+import { debounce } from "lodash"; // Make sure to install lodash if it's not installed
 
 /** GraphQL query to fetch all Mars photos with filters */
 export const MARSPHOTOS = gql(`
@@ -95,14 +96,14 @@ const MarsPhotos = () => {
   }, [filters, refetch, isLoadingMore]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop >=
-        document.documentElement.offsetHeight - 100
-      ) {
+    const handleScroll = debounce(() => {
+      const scrolled = window.innerHeight + document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const threshold = 300;
+      if (scrolled + threshold >= scrollHeight) {
         loadMorePhotos();
       }
-    };
+    }, 200);
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
