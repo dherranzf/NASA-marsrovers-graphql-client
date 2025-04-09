@@ -1,14 +1,20 @@
 import React, { PropsWithChildren } from 'react';
-import { colors, widths } from '../styles';
+import { widths } from '../styles';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion'; // Import framer-motion
 import logo from '/logo512.png';
+import { useTheme } from '../context/ThemeContext';
+import { MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'; // Import modern icons
 
 /**
  * Header displays the top navigation bar.
  * Contains a button to return to the homepage.
  */
 const Header: React.FC<PropsWithChildren> = ({ children }) => {
+  const { isDarkMode, toggleTheme } = useTheme();
+  const accentColor = isDarkMode ? "#F26D3F" : "#b87333"; // Define el color según el tema
+
   return (
     <HeaderBar>
       <Container>
@@ -26,10 +32,20 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
           </HomeLink>
         </HomeButtonContainer>
         <NavButtons>
-          <NavLink to="/">Rover's Photos</NavLink>
-          <NavLink to="/timeline">Missions Timeline</NavLink>
-          <NavLink to="/marsfacts">Mars Facts</NavLink> 
+          {['Rover\'s Photos', 'Missions Timeline', 'Mars Facts'].map((text, index) => (
+            <NavLink
+              key={index}
+              to={index === 0 ? '/' : index === 1 ? '/timeline' : '/marsfacts'}
+              whileHover={{ scale: 1.1, color: accentColor }} // Usa un valor estático para color
+              whileTap={{ scale: 0.95 }}
+            >
+              {text}
+            </NavLink>
+          ))}
         </NavButtons>
+        <ThemeToggle onClick={toggleTheme}>
+          {isDarkMode ? <MdOutlineLightMode size={24} /> : <MdOutlineDarkMode size={24} />}
+        </ThemeToggle>
         {children}
       </Container>
     </HeaderBar>
@@ -39,22 +55,22 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
 export default Header;
 
 /** Styled Components */
-const HeaderBar = styled.div({
+const HeaderBar = styled.div(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
-  borderBottom: 'solid 1px #d2b48c',
+  borderBottom: `solid 1px ${theme.textSecondary}`,
   boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.15)',
   padding: '10px 30px',
   minHeight: 80,
-  backgroundColor: 'white',
+  backgroundColor: theme.secondary,
   '@media (max-width: 768px)': {
     flexDirection: 'column',
     alignItems: 'flex-start',
     padding: '10px 15px',
   },
-});
+}));
 
 
 const Container = styled.div({
@@ -82,15 +98,15 @@ const HomeButtonContainer = styled.div({
   maxWidth: '1100px',
 });
 
-const HomeButton = styled.div({
+const HomeButton = styled.div(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-  color: colors.accent,
+  color: theme.text,
   alignItems: 'center',
   ':hover': {
-    color: colors.orange.dark,
+    color: theme.textSecondary,
   },
-});
+}));
 
 const LogoContainer = styled.div({ display: 'flex', alignSelf: 'center' });
 
@@ -100,22 +116,22 @@ const Logo = styled.img({
   marginRight: 8,
 });
 
-const Title = styled.div({
+const Title = styled.div(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   marginRight: 'auto',
   h3: {
     lineHeight: '1em',
     marginBottom: 0,
-    color: colors.accent,
+    color: theme.accent,
   },
   div: {
     fontSize: '0.9em',
     lineHeight: '0.8em',
     paddingLeft: 2,
-    color: colors.accent,
+    color: theme.accent,
   },
-});
+}));
 
 const NavButtons = styled.div({
   display: 'flex',
@@ -129,19 +145,32 @@ const NavButtons = styled.div({
   },
 });
 
-const NavLink = styled(Link)({
+const NavLink = motion(styled(Link)(({ theme }) => ({
   textDecoration: 'none',
-  color: colors.text,
+  color: theme.text,
   fontSize: '1em',
   fontWeight: 'bold',
   padding: '10px 20px',
-  borderRadius: '30px', // Rounded pill shape
-  backgroundColor: colors.background,
-  border: `1px solid ${colors.textSecondary}`,
+  borderRadius: '10px', // Rounded pill shape
+  backgroundColor: theme.background,
+  border: `none`,
   transition: 'transform 0.3s ease, background-color 0.3s ease',
+})));
+
+const ThemeToggle = styled.button(({ theme }) => ({
+  background: 'none',
+  border: 'none',
+  color: theme.text,
+  cursor: 'pointer',
+  fontSize: '1.5em',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '10px',
+  marginLeft: '20px', // Add spacing from other buttons
+  marginRight: '10px', // Add spacing from the right margin
+  transition: 'color 0.3s ease',
   ':hover': {
-    backgroundColor: colors.accent,
-    color: '#fff', // White text on hover
-    transform: 'scale(1.1)',
+    color: theme.accent,
   },
-});
+}));

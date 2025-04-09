@@ -1,7 +1,18 @@
 import React from 'react';
 import '@apollo/space-kit/reset.css';
 import { colors as SKColors } from '@apollo/space-kit/colors';
-import { Global } from '@emotion/core';
+import { Global, ThemeProvider } from '@emotion/react';
+import { motion } from 'framer-motion';
+
+declare module '@emotion/react' {
+  export interface Theme {
+    background: string;
+    secondary: string;
+    accent: string;
+    text: string;
+    textSecondary: string;
+  }
+}
 
 const breakpoints = [480, 768, 992, 1200];
 export const mq = breakpoints.map((bp) => `@media (min-width: ${bp}px)`);
@@ -12,17 +23,26 @@ export const widths = {
   regularPageWidth: 1100,
   textPageWidth: 800,
 };
-export const colors = {
+
+
+export const darkTheme: Theme = {
+  background: "#0D171C", // Darker Mars-inspired background
+  secondary: "#1A2E3A",  // Lighter tone for containers
+  accent: "#F26D3F",     // Bold orange highlight
+  text: "#F5F2F0",       // Light neutral text
+  textSecondary: "#F5C6A5",
+};
+
+export const lightTheme: Theme = {
   primary: '#D2B48C', // Soft tan
   secondary: '#FDEDDF', // Orange beige
   accent: '#b87333', // Mars-like copper tone
   background: '#FEF6EF', // Almost white
   text: '#333333', // Dark gray
   textSecondary: '#666666', // Medium gray
-  ...SKColors,
 };
 
-const GlobalStyles = () => (
+export const GlobalStyles = ({ theme }: { theme: Theme }) => (
   <Global
     styles={{
       html: {
@@ -33,16 +53,19 @@ const GlobalStyles = () => (
         height: '100%',
         padding: 0,
         fontFamily: "'Source Sans Pro', sans-serif",
-        backgroundColor: colors.background,
-        color: colors.text,
+        backgroundColor: theme.background,
+        color: theme.text,
       },
       '#root': {
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100%',
-        backgroundColor: colors.background,
+        backgroundColor: theme.background,
         backgroundPosition: 'center',
-        backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/mars_surface_pattern.png")',
+        backgroundImage: `
+          linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+          url("/mars_surface_pattern.png")
+        `,
         backgroundSize: 'cover',
         backgroundAttachment: 'fixed',        
       },
@@ -76,9 +99,9 @@ const GlobalStyles = () => (
       },
       button: {
         padding: '10px 20px',
-        borderRadius: '30px', // Rounded buttons
+        borderRadius: '30px',
         border: 'none',
-        backgroundColor: colors.accent,
+        backgroundColor: theme.accent,
         color: '#fff',
         fontSize: '1em',
         fontWeight: 'bold',
@@ -93,6 +116,8 @@ const GlobalStyles = () => (
   />
 );
 
+export const MotionButton = motion.button;
+
 export default GlobalStyles;
 
 export { IconRun } from '@apollo/space-kit/icons/IconRun';
@@ -104,3 +129,4 @@ export { IconArrowRight } from '@apollo/space-kit/icons/IconArrowRight';
 export { IconDoubleArrowRight } from '@apollo/space-kit/icons/IconDoubleArrowRight';
 export { ApolloIcon } from '@apollo/space-kit/icons/ApolloIcon';
 export { Button } from '@apollo/space-kit/Button';
+export { ThemeProvider };

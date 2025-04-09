@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { colors } from '../styles';
-import { humanReadableTimeFromSeconds } from '../utils/helpers';
 
 const MarsPhotoDetail: React.FC<{ marsPhoto: any }> = ({ marsPhoto }) => {
   const {
@@ -10,7 +8,7 @@ const MarsPhotoDetail: React.FC<{ marsPhoto: any }> = ({ marsPhoto }) => {
     img_src,
     rover = { name: '', landing_date: '', launch_date: '', status: '', img_src: '' },
     earth_date,
-    number_of_views,
+number_of_views,
     camera = { full_name: '', name: '' },
   } = marsPhoto ?? {};
 
@@ -23,12 +21,14 @@ const MarsPhotoDetail: React.FC<{ marsPhoto: any }> = ({ marsPhoto }) => {
       <p>Rover: {rover.name}</p>
       <p>Camera: {camera.full_name}</p>
       <RoverDetails>
-        <h2>Rover Details</h2>
         <RoverImage src="/rover-curiosity.jpg" alt={`Image of Rover ${rover.name}`} />
-        <p>Name: {rover.name}</p>
-        <p>Landing Date: {rover.landing_date}</p>
-        <p>Launch Date: {rover.launch_date}</p>
-        <p>Status: {rover.status}</p>
+        <div>
+          <h2>Rover Details</h2>
+          <p>Name: {rover.name}</p>
+          <p>Landing Date: {rover.landing_date}</p>
+          <p>Launch Date: {rover.launch_date}</p>
+          <p>Status: {rover.status}</p>
+        </div>
       </RoverDetails>
     </DetailContainer>
   );
@@ -37,16 +37,19 @@ const MarsPhotoDetail: React.FC<{ marsPhoto: any }> = ({ marsPhoto }) => {
 export default MarsPhotoDetail;
 
 /** Styled Components */
-const DetailContainer = styled.div({
+const DetailContainer = styled.div(({ theme }) => ({
   padding: 20,
-  backgroundColor: colors.secondary,
+  backgroundColor: theme.secondary,
   borderRadius: 8,
   overflowY: 'auto', // Allows vertical scrolling if the content is too large
   maxHeight: 'calc(100vh - 40px)', // Limits the maximum height to 100% of the viewport minus a margin
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'stretch',
-});
+  p: {
+    color: theme.textSecondary, // Set text color for <p> elements
+  },
+}));
 
 const CoverImage = styled.img({
   width: '100%', // Use the full width of the container
@@ -56,15 +59,29 @@ const CoverImage = styled.img({
   marginBottom: 20,
 });
 
-const RoverDetails = styled.div({
+const RoverDetails = styled.div(({ theme }) => ({
   marginTop: 20,
   padding: 20,
-  backgroundColor: colors.background,
+  backgroundColor: theme.background,
   borderRadius: 8,
   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   width: '100%',
   boxSizing: 'border-box',
-});
+  display: 'flex', // Use flex layout
+  gap: 20, // Add spacing between the image and text
+  alignItems: 'flex-start', // Align items at the top
+  h2: {
+    marginTop: 0, // Ensure the heading aligns properly
+  },
+  p: {
+    margin: 0, // Remove default margin for <p> elements
+  },
+  '> div': { // Target the text container
+    display: 'flex',
+    flexDirection: 'column', // Stack text elements vertically
+    gap: 15, // Add more spacing between <p> elements
+  },
+}));
 
 const RoverImage = styled.img({
   width: '100%',

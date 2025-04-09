@@ -7,7 +7,6 @@ import MarsPhotoCard from "../containers/marsphoto-card";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styled from "@emotion/styled";
-import { colors } from "../styles";
 import { debounce } from "lodash"; // Make sure to install lodash if it's not installed
 
 /** GraphQL query to fetch all Mars photos with filters */
@@ -125,6 +124,7 @@ const MarsPhotos = () => {
               placeholder="Enter Sol"
               value={filters.sol}
               onChange={handleFilterChange}
+              required 
             />
           </FormGroup>
           <FormGroup>
@@ -175,14 +175,15 @@ const MarsPhotos = () => {
 export default MarsPhotos;
 
 /** Styled Components */
-const FilterSection = styled.div({
+const FilterSection = styled.div(({ theme }) => ({
+  backgroundColor: theme.secondary,
+  color: theme.text,
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
   padding: "20px",
   marginTop: "40px",
   marginBottom: "20px",
-  backgroundColor: colors.secondary,
   borderRadius: "8px",
   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
   width: "100%",
@@ -199,27 +200,43 @@ const FilterSection = styled.div({
       gap: "10px",
     },
   },
-});
+}));
 
-const FormGroup = styled.div({
+const FormGroup = styled.div(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   label: {
     marginBottom: "5px",
     fontSize: "1em",
-    color: colors.textSecondary,
+    color: theme.text,
   },
   input: {
     padding: "10px",
     fontSize: "1em",
-    border: `1px solid ${colors.textSecondary}`,
+    border: `none`,
     borderRadius: "4px",
     width: "100%",
+    backgroundColor: theme.background, // Default background color
+    color: theme.text, // Default text color
+    transition: "background-color 0.3s ease, color 0.3s ease", // Smooth transition
+    "&:focus, &:not(:placeholder-shown)": { // Apply styles when focused or filled
+      backgroundColor: theme.background,
+      color: theme.textSecondary, // Change text color when filled
+    },
+  },
+  ".react-datepicker__input-container input": { // Target the date picker input
+    backgroundColor: theme.background, // Default background color
+    color: theme.text, // Default text color
+    transition: "background-color 0.3s ease, color 0.3s ease", // Smooth transition
+    "&:focus, &:not(:placeholder-shown)": { // Apply styles when focused or filled
+      backgroundColor: theme.background,
+      color: theme.textSecondary, // Change text color when filled
+    },
   },
   '@media (max-width: 768px)': {
     width: "100%",
   },
-});
+}));
 
 const PhotoSection = styled.div({
   display: "grid",
@@ -230,9 +247,9 @@ const PhotoSection = styled.div({
   margin: "0 auto",
 });
 
-const LoadingIndicator = styled.div({
+const LoadingIndicator = styled.div(({ theme }) => ({
   textAlign: "center",
   padding: "20px",
   fontSize: "1.2em",
-  color: colors.textSecondary,
-});
+  color: theme.textSecondary,
+}));

@@ -1,7 +1,6 @@
 import React from "react";
 import { Layout } from "../components";
 import styled from "@emotion/styled";
-import { colors } from "../styles";
 import { FaPalette, FaThermometerHalf, FaCloud, FaWeight, FaClock, FaMountain, FaGripLines, FaWater, FaMoon } from "react-icons/fa";
 
 const MarsFacts: React.FC = () => {
@@ -38,20 +37,20 @@ const MarsFacts: React.FC = () => {
 export default MarsFacts;
 
 /** Styled Components */
-const FactsContainer = styled.div({
+const FactsContainer = styled.div(({ theme }) => ({
   padding: "40px 20px",
-  backgroundColor: colors.secondary,
+  backgroundColor: theme.secondary,
   borderRadius: "12px",
   boxShadow: "0 8px 20px rgba(0, 0, 0, 0.2)",
   maxWidth: "1200px",
   margin: "40px auto",
   textAlign: "center",
   h1: {
-    color: colors.text, // Updated to match the header's color
+    color: theme.text,
     marginBottom: "30px",
     fontSize: "2.5em",
   },
-});
+}));
 
 const FactsGrid = styled.div({
   display: "grid",
@@ -59,8 +58,8 @@ const FactsGrid = styled.div({
   gap: "20px",
 });
 
-const FactCard = styled.div({
-  backgroundColor: colors.background,
+const FactCard = styled.div(({ theme }) => ({
+  backgroundColor: theme.background,
   padding: "20px",
   borderRadius: "10px",
   boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)",
@@ -73,21 +72,21 @@ const FactCard = styled.div({
   flexDirection: "column",
   alignItems: "center",
   textAlign: "center",
-});
+}));
 
-const IconContainer = styled.div({
+const IconContainer = styled.div(({ theme }) => ({
   fontSize: "2em",
-  color: colors.accent,
+  color: theme.accent,
   marginBottom: "10px",
-});
+}));
 
-const FactTitle = styled.h2({
+const FactTitle = styled.h2(({ theme }) => ({
   fontSize: "1.5em",
-  color: colors.text,
+  color: theme.text,
   marginBottom: "10px",
-});
+}));
 
-const FactDescription = styled.p({
+const FactDescription = styled.p(({ theme }) => ({
   fontSize: "1em",
-  color: colors.textSecondary,
-});
+  color: theme.textSecondary,
+}));

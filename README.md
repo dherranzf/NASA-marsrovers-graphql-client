@@ -16,13 +16,14 @@ Explore the wonders of Mars with this GraphQL React Web! 🔭
 - [📜 License](#-license)
 
 ## 🧑‍💻 Features
-- Display a grid of Mars Rover photos and Filter photos by Martian Sol or Earth Date.
-- Infinite Scroll: Automatically load more photos as you scroll down the page, dynamically adjusting filters.
-- View detailed information about a specific photo, including the rover and camera details.
-- Increment the view count for a photo when it is clicked.
-- Explore a timeline of Mars Rover missions.
-- Learn interesting facts about Mars in the "Mars Facts" section.
-- Responsive design for seamless use on desktop and mobile devices.
+- Display a grid of **Mars Rover photos** and Filter photos by Martian Sol or Earth Date.
+- **Infinite Scroll**: Automatically load more photos as you scroll down the page, dynamically adjusting filters.
+- View detailed information about a **specific photo**, including the rover and camera details.
+- Increment the **view count** for a photo when it is clicked.
+- Explore a timeline of **Mars Rover missions**.
+- Learn interesting facts about Mars in the **"Mars Facts"** section.
+- **Dark/Light Theme Toggle**: Switch between dark and light themes for a personalized viewing experience.
+- **Responsive design** for seamless use on desktop and mobile devices.
 
 ## 🎨 Technology Stack
 

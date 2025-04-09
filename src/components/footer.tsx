@@ -1,12 +1,16 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { colors } from '../styles';
-import { FaGithub, FaLinkedin } from "react-icons/fa"; // Import GitHub and LinkedIn icons
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { motion } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext'; // Importa el contexto del tema
 
 /**
- * Footer is useless component to make our app look a little closer to a real website!
+ * Footer is a component to make the app look more complete.
  */
 const Footer = () => {
+  const { isDarkMode } = useTheme(); // Obtén el estado del tema
+  const accentColor = isDarkMode ? "#F26D3F" : "#b87333"; // Define el color según el tema
+
   return (
     <FooterContainer>
       <LogoSection>
@@ -16,15 +20,27 @@ const Footer = () => {
       </LogoSection>
       <InfoSection>
         <FooterText>
-        {new Date().getFullYear()} © Developed by dherranzf
+          {new Date().getFullYear()} © Developed by dherranzf
         </FooterText>
         <IconContainer>
-          <a href="https://www.linkedin.com/in/daniel-herranz-fern%C3%A1ndez-b4650511b/" target="_blank" rel="noopener noreferrer">
-            <FaLinkedin style={{ marginRight: 10, color: '#555' }} />
-          </a>
-          <a href="https://github.com/dherranzf" target="_blank" rel="noopener noreferrer">
-            <FaGithub style={{ color: '#555' }} />
-          </a>
+          <MotionIcon
+            href="https://www.linkedin.com/in/daniel-herranz-fern%C3%A1ndez-b4650511b/"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.2, color: accentColor }} // Usa un valor estático para color
+            whileTap={{ scale: 0.9 }}
+          >
+            <FaLinkedin />
+          </MotionIcon>
+          <MotionIcon
+            href="https://github.com/dherranzf"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.2, color: accentColor }} // Usa un valor estático para color
+            whileTap={{ scale: 0.9 }}
+          >
+            <FaGithub />
+          </MotionIcon>
         </IconContainer>
       </InfoSection>
     </FooterContainer>
@@ -34,68 +50,63 @@ const Footer = () => {
 export default Footer;
 
 /** Footer styled components */
-const FooterContainer = styled.div({
+const FooterContainer = styled.div(({ theme }) => ({
+  backgroundColor: theme.secondary,
+  color: theme.text,
   display: 'flex',
-  flexDirection: 'column', // Stack sections vertically
-  justifyContent: 'space-between', // Add space between sections
+  flexDirection: 'column',
+  justifyContent: 'space-between',
   alignItems: 'center',
-  color: colors.accent, // Mars-like copper tone
   marginTop: 30,
   height: 200,
   padding: 20,
-  backgroundColor: '#FFFFFF', // Changed to white
-  borderTop: `solid 1px #d2b48c`, // Mars-like light tan tone
-});
+  borderTop: `solid 1px ${theme.textSecondary}`,
+}));
 
 const InfoSection = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center', // Center horizontally
-  justifyContent: 'center', // Center vertically
+  alignItems: 'center',
+  justifyContent: 'center',
 });
 
 const LogoSection = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center', // Center horizontally
-  justifyContent: 'flex-start', // Align at the top of the section
-  marginBottom: 5, // Add spacing below the logo section
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  marginBottom: 5,
 });
 
 const IconContainer = styled.div({
   marginTop: 10,
   display: 'flex',
   flexDirection: 'row',
-  gap: '15px', // Add spacing between icons
-  a: {
-    textDecoration: 'none',
-    svg: {
-      fontSize: '2em', // Increase icon size
-      transition: 'transform 0.3s ease, color 0.3s ease',
-      ':hover': {
-        transform: 'scale(1.2)', // Slightly enlarge on hover
-        color: colors.accent, // Change color on hover
-      },
-    },
-  },
+  gap: '15px',
 });
+
+const MotionIcon = motion(styled.a(({ theme }) => ({
+  textDecoration: 'none',
+  svg: {
+    fontSize: '2em',
+    color: theme.textSecondary,
+    transition: 'transform 0.5s ease, color 0.5s ease',
+  },
+})));
 
 const LogoContainer = styled.div({
   height: 40,
   marginLeft: 5,
-  svg: {
-    height: 40,
-  },
 });
 
-const FooterText = styled.div({
+const FooterText = styled.div(({ theme }) => ({
   fontSize: "0.9em",
-  color: colors.accent, // Match the initial date color
+  color: theme.textSecondary,
   a: {
-    color: "#555", // Formal and subtle link color
+    color: theme.textSecondary,
     textDecoration: "none",
     ":hover": {
       textDecoration: "underline",
     },
   },
-});
+}));

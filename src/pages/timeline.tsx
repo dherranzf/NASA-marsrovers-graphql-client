@@ -1,7 +1,6 @@
 import React from "react";
 import { Layout } from "../components";
 import styled from "@emotion/styled";
-import { colors } from "../styles";
 import { FaRocket, FaSearch } from "react-icons/fa";
 
 const events = [
@@ -46,24 +45,24 @@ const TimelinePage: React.FC = () => {
 export default TimelinePage;
 
 /** Styled Components */
-const TimelineContainer = styled.div({
+const TimelineContainer = styled.div(({ theme }) => ({
   padding: "50px 20px",
-  backgroundColor: colors.secondary,
+  backgroundColor: theme.secondary,
   minHeight: "100vh",
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
-  color: colors.text,
+  color: theme.text,
   maxWidth: "1100px",
   margin: "0 auto",
   h1: {
     fontSize: "2.5em",
     marginBottom: "30px",
-    color: colors.text, // Updated to match the header's color
+    color: theme.text,
   },
-});
+}));
 
-const Timeline = styled.div({
+const Timeline = styled.div(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "40px",
@@ -76,17 +75,17 @@ const Timeline = styled.div({
     top: 0,
     bottom: 0,
     width: "4px",
-    background: colors.accent,
+    background: theme.accent,
   },
-});
+}));
 
-const TimelineEvent = styled.div<{ type: string }>(({ type }) => ({
+const TimelineEvent = styled.div<{ type: string }>(({ theme, type }) => ({
   display: "flex",
   alignItems: "flex-start",
   gap: "20px",
   position: "relative",
   padding: "20px",
-  backgroundColor: colors.background,
+  backgroundColor: theme.background,
   borderRadius: "10px",
   boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)",
   marginLeft: "50px",
@@ -102,41 +101,41 @@ const TimelineEvent = styled.div<{ type: string }>(({ type }) => ({
     top: "20px",
     width: "20px",
     height: "20px",
-    background: type === "Landing" ? colors.accent : colors.orange.light,
+    background: type === "Landing" ? theme.textSecondary : theme.textSecondary,
     borderRadius: "50%",
     boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
   },
 }));
 
-const IconContainer = styled.div({
+const IconContainer = styled.div(({ theme }) => ({
   fontSize: "1.5em",
-  color: colors.text,
-  backgroundColor: colors.secondary,
+  color: theme.accent,
+  backgroundColor: theme.secondary,
   padding: "10px",
   borderRadius: "50%",
   boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-});
+}));
 
-const EventContent = styled.div({
+const EventContent = styled.div(({ theme }) => ({
   textAlign: "left",
-  color: colors.text,
-});
+  color: theme.text,
+}));
 
-const EventDate = styled.div({
+const EventDate = styled.div(({ theme }) => ({
   fontSize: "0.9em",
   fontWeight: "bold",
   marginBottom: "5px",
-  color: colors.textSecondary,
-});
+  color: theme.textSecondary,
+}));
 
-const EventTitle = styled.h2({
+const EventTitle = styled.h2(({ theme }) => ({
   fontSize: "1.5em",
   marginBottom: "10px",
-  color: colors.text,
-});
+  color: theme.text,
+}));
 
-const EventDescription = styled.p({
+const EventDescription = styled.p(({ theme }) => ({
   fontSize: "1em",
   lineHeight: "1.5",
-  color: colors.textSecondary,
-});
+  color: theme.textSecondary,
+}));
