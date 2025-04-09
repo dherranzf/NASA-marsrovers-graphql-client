@@ -2,6 +2,7 @@ import React from 'react';
 import '@apollo/space-kit/reset.css';
 import { colors as SKColors } from '@apollo/space-kit/colors';
 import { Global } from '@emotion/core';
+import { motion } from 'framer-motion'; // Import framer-motion
 
 const breakpoints = [480, 768, 992, 1200];
 export const mq = breakpoints.map((bp) => `@media (min-width: ${bp}px)`);
@@ -13,12 +14,11 @@ export const widths = {
   textPageWidth: 800,
 };
 export const colors = {
-  primary: '#D2B48C', // Soft tan
-  secondary: '#FDEDDF', // Orange beige
-  accent: '#b87333', // Mars-like copper tone
-  background: '#FEF6EF', // Almost white
-  text: '#333333', // Dark gray
-  textSecondary: '#666666', // Medium gray
+  background: "#0D171C", // Darker Mars-inspired background
+  secondary: "#1A2E3A",  // Lighter tone for containers
+  accent: "#F26D3F",     // Bold orange highlight
+  text: "#F5F2F0",       // Light neutral text
+  textSecondary: "#F5C6A5",
   ...SKColors,
 };
 
@@ -42,7 +42,10 @@ const GlobalStyles = () => (
         minHeight: '100%',
         backgroundColor: colors.background,
         backgroundPosition: 'center',
-        backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/mars_surface_pattern.png")',
+        backgroundImage: `
+          linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+          url("/mars_surface_pattern.png")
+        `,
         backgroundSize: 'cover',
         backgroundAttachment: 'fixed',        
       },
@@ -76,7 +79,7 @@ const GlobalStyles = () => (
       },
       button: {
         padding: '10px 20px',
-        borderRadius: '30px', // Rounded buttons
+        borderRadius: '30px',
         border: 'none',
         backgroundColor: colors.accent,
         color: '#fff',
@@ -92,6 +95,8 @@ const GlobalStyles = () => (
     }}
   />
 );
+
+export const MotionButton = motion.button; // Export a motion-enhanced button
 
 export default GlobalStyles;
 

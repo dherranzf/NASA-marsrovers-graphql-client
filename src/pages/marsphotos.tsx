@@ -125,6 +125,7 @@ const MarsPhotos = () => {
               placeholder="Enter Sol"
               value={filters.sol}
               onChange={handleFilterChange}
+              required 
             />
           </FormGroup>
           <FormGroup>
@@ -207,14 +208,30 @@ const FormGroup = styled.div({
   label: {
     marginBottom: "5px",
     fontSize: "1em",
-    color: colors.textSecondary,
+    color: colors.text,
   },
   input: {
     padding: "10px",
     fontSize: "1em",
-    border: `1px solid ${colors.textSecondary}`,
+    border: `none`,
     borderRadius: "4px",
     width: "100%",
+    backgroundColor: colors.background, // Default background color
+    color: colors.text, // Default text color
+    transition: "background-color 0.3s ease, color 0.3s ease", // Smooth transition
+    "&:focus, &:not(:placeholder-shown)": { // Apply styles when focused or filled
+      backgroundColor: colors.background,
+      color: colors.textSecondary, // Change text color when filled
+    },
+  },
+  ".react-datepicker__input-container input": { // Target the date picker input
+    backgroundColor: colors.background, // Default background color
+    color: colors.text, // Default text color
+    transition: "background-color 0.3s ease, color 0.3s ease", // Smooth transition
+    "&:focus, &:not(:placeholder-shown)": { // Apply styles when focused or filled
+      backgroundColor: colors.background,
+      color: colors.textSecondary, // Change text color when filled
+    },
   },
   '@media (max-width: 768px)': {
     width: "100%",

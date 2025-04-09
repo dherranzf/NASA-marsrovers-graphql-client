@@ -102,7 +102,7 @@ const TimelineEvent = styled.div<{ type: string }>(({ type }) => ({
     top: "20px",
     width: "20px",
     height: "20px",
-    background: type === "Landing" ? colors.accent : colors.orange.light,
+    background: type === "Landing" ? colors.orange.dark : colors.orange.light,
     borderRadius: "50%",
     boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
   },
@@ -110,7 +110,7 @@ const TimelineEvent = styled.div<{ type: string }>(({ type }) => ({
 
 const IconContainer = styled.div({
   fontSize: "1.5em",
-  color: colors.text,
+  color: colors.accent, // Set icon color to colors.accent.
   backgroundColor: colors.secondary,
   padding: "10px",
   borderRadius: "50%",

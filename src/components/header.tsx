@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import { colors, widths } from '../styles';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion'; // Import framer-motion
 import logo from '/logo512.png';
 
 /**
@@ -26,9 +27,16 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
           </HomeLink>
         </HomeButtonContainer>
         <NavButtons>
-          <NavLink to="/">Rover's Photos</NavLink>
-          <NavLink to="/timeline">Missions Timeline</NavLink>
-          <NavLink to="/marsfacts">Mars Facts</NavLink> 
+          {['Rover\'s Photos', 'Missions Timeline', 'Mars Facts'].map((text, index) => (
+            <NavLink
+              key={index}
+              to={index === 0 ? '/' : index === 1 ? '/timeline' : '/marsfacts'}
+              whileHover={{ scale: 1.1, color: colors.accent }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {text}
+            </NavLink>
+          ))}
         </NavButtons>
         {children}
       </Container>
@@ -44,11 +52,11 @@ const HeaderBar = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
-  borderBottom: 'solid 1px #d2b48c',
+  borderBottom: `solid 1px ${colors.textSecondary}`,
   boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.15)',
   padding: '10px 30px',
   minHeight: 80,
-  backgroundColor: 'white',
+  backgroundColor: colors.secondary,
   '@media (max-width: 768px)': {
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -85,10 +93,10 @@ const HomeButtonContainer = styled.div({
 const HomeButton = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  color: colors.accent,
+  color: colors.text,
   alignItems: 'center',
   ':hover': {
-    color: colors.orange.dark,
+    color: colors.textSecondary,
   },
 });
 
@@ -129,19 +137,14 @@ const NavButtons = styled.div({
   },
 });
 
-const NavLink = styled(Link)({
+const NavLink = motion(styled(Link)({
   textDecoration: 'none',
   color: colors.text,
   fontSize: '1em',
   fontWeight: 'bold',
   padding: '10px 20px',
-  borderRadius: '30px', // Rounded pill shape
+  borderRadius: '10px', // Rounded pill shape
   backgroundColor: colors.background,
-  border: `1px solid ${colors.textSecondary}`,
+  border: `none`,
   transition: 'transform 0.3s ease, background-color 0.3s ease',
-  ':hover': {
-    backgroundColor: colors.accent,
-    color: '#fff', // White text on hover
-    transform: 'scale(1.1)',
-  },
-});
+}));

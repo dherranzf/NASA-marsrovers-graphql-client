@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import type { MarsPhoto } from "../__generated__/graphql";
 import { useMutation } from "@apollo/client";
 import { gql } from "../__generated__";
+import { FaCamera } from "react-icons/fa"; // Import the camera icon from react-icons
 
 /**
  * Mutation to increment a marsPhotos's number of views
@@ -51,7 +52,10 @@ const MarsPhotoCard: React.FC<MarsPhotoCardProps> = ({ marsPhoto, linkTo }) => {
           <CardImage src={img_src || ""} alt={id} />
         </CardImageContainer>
         <CardBody>
-          <CardTitle>{id} - {" "} sol {sol}</CardTitle>
+          <CardTitle>
+            <FaCamera size={20} /> {/* Remove the color prop */}
+            {id} - {" "} sol {sol}
+          </CardTitle>
           <CardFooter>
             <RoverImage src="/rover-curiosity.jpg" alt={`Image of Rover ${rover.name}`} />
             <RoverAndMarsPhoto>
@@ -86,10 +90,17 @@ const CardContainer = styled(Link)({
   margin: "10px auto",
   overflow: "hidden",
   position: "relative",
-  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+  transition: "transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease", // Add color transition
   ":hover": {
     transform: "scale(1.05)", // Slightly enlarge on hover
     boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.2)", // Stronger shadow on hover
+    color: colors.accent, // Change text and icon color on hover
+    h3: { // Target CardTitle
+      color: colors.accent,
+    },
+    svg: { // Target CameraIcon
+      color: colors.accent,
+    },
   },
   cursor: "pointer",
   textDecoration: "none",
@@ -109,6 +120,13 @@ const CardTitle = styled.h3({
   fontWeight: 700,
   color: colors.text,
   flex: 1,
+  display: "flex", // Add flex to align icon and text
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "8px", // Add spacing between icon and text
+  svg: { // Ensure the icon inherits the text color
+    transition: "color 0.3s ease", // Smooth transition for color change
+  },
 });
 
 const CardImageContainer = styled.div({

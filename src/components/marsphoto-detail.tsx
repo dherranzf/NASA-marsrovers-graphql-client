@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { colors } from '../styles';
-import { humanReadableTimeFromSeconds } from '../utils/helpers';
 
 const MarsPhotoDetail: React.FC<{ marsPhoto: any }> = ({ marsPhoto }) => {
   const {
@@ -10,7 +9,7 @@ const MarsPhotoDetail: React.FC<{ marsPhoto: any }> = ({ marsPhoto }) => {
     img_src,
     rover = { name: '', landing_date: '', launch_date: '', status: '', img_src: '' },
     earth_date,
-    number_of_views,
+number_of_views,
     camera = { full_name: '', name: '' },
   } = marsPhoto ?? {};
 
@@ -23,12 +22,14 @@ const MarsPhotoDetail: React.FC<{ marsPhoto: any }> = ({ marsPhoto }) => {
       <p>Rover: {rover.name}</p>
       <p>Camera: {camera.full_name}</p>
       <RoverDetails>
-        <h2>Rover Details</h2>
         <RoverImage src="/rover-curiosity.jpg" alt={`Image of Rover ${rover.name}`} />
-        <p>Name: {rover.name}</p>
-        <p>Landing Date: {rover.landing_date}</p>
-        <p>Launch Date: {rover.launch_date}</p>
-        <p>Status: {rover.status}</p>
+        <div>
+          <h2>Rover Details</h2>
+          <p>Name: {rover.name}</p>
+          <p>Landing Date: {rover.landing_date}</p>
+          <p>Launch Date: {rover.launch_date}</p>
+          <p>Status: {rover.status}</p>
+        </div>
       </RoverDetails>
     </DetailContainer>
   );
@@ -46,6 +47,9 @@ const DetailContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'stretch',
+  p: {
+    color: colors.textSecondary, // Set text color for <p> elements
+  },
 });
 
 const CoverImage = styled.img({
@@ -64,6 +68,20 @@ const RoverDetails = styled.div({
   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   width: '100%',
   boxSizing: 'border-box',
+  display: 'flex', // Use flex layout
+  gap: 20, // Add spacing between the image and text
+  alignItems: 'flex-start', // Align items at the top
+  h2: {
+    marginTop: 0, // Ensure the heading aligns properly
+  },
+  p: {
+    margin: 0, // Remove default margin for <p> elements
+  },
+  '> div': { // Target the text container
+    display: 'flex',
+    flexDirection: 'column', // Stack text elements vertically
+    gap: 15, // Add more spacing between <p> elements
+  },
 });
 
 const RoverImage = styled.img({
