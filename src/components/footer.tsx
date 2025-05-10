@@ -24,7 +24,7 @@ const Footer = () => {
         </FooterText>
         <IconContainer>
           <MotionIcon
-            href="https://www.linkedin.com/in/daniel-herranz-fern%C3%A1ndez-b4650511b/"
+            href="https://www.linkedin.com/in/daniel-herranz-fernandez/"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.2, color: accentColor }} // Usa un valor estático para color

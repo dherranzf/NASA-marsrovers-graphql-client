@@ -70,6 +70,11 @@ const RoverDetails = styled.div(({ theme }) => ({
   display: 'flex', // Use flex layout
   gap: 20, // Add spacing between the image and text
   alignItems: 'flex-start', // Align items at the top
+  flexDirection: 'row', // Default layout: image and text side by side
+  '@media (max-width: 768px)': {
+    flexDirection: 'column', // Stack image and text vertically on small screens
+    alignItems: 'center', // Center align items on small screens
+  },
   h2: {
     marginTop: 0, // Ensure the heading aligns properly
   },
