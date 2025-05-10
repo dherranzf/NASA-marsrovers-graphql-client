@@ -24,8 +24,7 @@ const App = () => {
               icon="info"
               message={
                 <>
-                  <p>This application is a proof of concept hosted on a free server.</p>
-                  <p>If the server has been inactive for a while, it may take a few minutes to start.</p>
+                  <If>This application is a proof of concept hosted on a free server. If the server has been inactive for a while, it may take a few minutes to start.</p>
                   <p>Please wait patiently for a few minutes to start seeing Mars photos.</p>
                   <p>Thank you for your patience!</p>
                 </>
