@@ -101,19 +101,13 @@ Run the tests using the following command:
 
 This will execute all test cases, including unit and integration tests, and display the results in the terminal.
 
-## 🔍 Example Screenshots
+## 🔍 Demo
 
-### Home - Mars Photos Grid
-![Home - Mars Photos Grid](./docs/mars-photos-grid.png)
-
-### Page Photo Details
-![Page Photo Details](./docs/photo-details-page.png)
-
-### Page Rover Missions Timeline
-![Page Rover Missions Timeline](./docs/mars-timeline-page.png)
-
-### Page Martian Facts
-![Page Martian Facts](./docs/mars-facts-page.png)
+<div style="text-align:center">
+  <a href="https://nasa-marsrovers-graphql-client.vercel.app/" target="_blank">
+    <img src="./docs/NASAMarsRovers-LiveDemo.gif" width="800" style="border:1px solid #808080; border-radius:8px"/>
+  </a>
+</div>
 
 ## 🔮 Future Improvements
 - Add more filtering and sorting options for photos.
