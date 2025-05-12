@@ -105,7 +105,7 @@ This will execute all test cases, including unit and integration tests, and disp
 
 <div style="text-align:center">
   <a href="https://nasa-marsrovers-graphql-client.vercel.app/" target="_blank">
-    <img src="./docs/NASA Mars Rovers - Live Demo.mp4" width="400" style="border:1px solid #808080; border-radius:8px"/>
+    <img src="./docs/NASAMarsRovers-LiveDemo.gif" width="600" style="border:1px solid #808080; border-radius:8px"/>
   </a>
 </div>
 
